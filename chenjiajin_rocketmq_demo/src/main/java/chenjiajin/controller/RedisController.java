@@ -20,12 +20,13 @@ public class RedisController {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
-    
+
 
     @GetMapping("/string/string")
     public Object stringRedis() throws Exception {
         redisTemplate.opsForValue().set("tt", "val");
         redisTemplate.expire("tt",20000, TimeUnit.MILLISECONDS);
+        System.out.println("333");
         return redisTemplate.opsForValue().get("tt");
     }
 
