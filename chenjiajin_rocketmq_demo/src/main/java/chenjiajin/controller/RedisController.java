@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/redis")
 public class RedisController {
+
+    
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
