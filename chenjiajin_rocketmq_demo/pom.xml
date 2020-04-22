@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>chenjiajin</groupId>
-            <artifactId>tools_demo</artifactId>
+            <artifactId>chenjiajin_tools_demo</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

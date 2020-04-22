@@ -15,10 +15,10 @@
     <name>all_demo</name>
     <description>Demo project for Spring Boot</description>
     <modules>
-        <module>redis_demo</module>
-        <module>rocketmq_demo</module>
-        <module>tools_demo</module>
-        <module>others_demo</module>
+        <module>chenjiajin_rocketmq_demo</module>
+        <module>chenjiajin_redis_demo</module>
+        <module>chenjiajin_tools_demo</module>
+        <module>chenjiajin_other_study_demo</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
