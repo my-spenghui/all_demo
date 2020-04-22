@@ -16,10 +16,11 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/redis")
 public class RedisController {
 
-    
+
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
+    
 
     @GetMapping("/string/string")
     public Object stringRedis() throws Exception {
