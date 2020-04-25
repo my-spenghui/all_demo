@@ -2,11 +2,10 @@ package chenjiajin.domain.web;
 
 import chenjiajin.domain.Comment;
 import chenjiajin.domain.service.CommentService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -53,8 +52,9 @@ public class CommentController {
      * 根据id查询单个
      * @return
      */
-    @GetMapping("get_one")
-    public Object getOne(String id){
+    @PostMapping("get_one")
+    public Object getOne(@RequestBody String id){
+        id = JSONObject.parseObject(id).getString("id");
         Comment comment = commentService.findCommentById(id);
         return comment;
     }
