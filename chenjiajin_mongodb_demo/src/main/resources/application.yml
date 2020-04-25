@@ -6,6 +6,8 @@ spring:
       database: articledb
       host: 101.133.143.199
       port: 27017
+      #也可以用uri链接
+      #uri: mongodb://101.133.143.199:27017/articledb
   banner:
     location:
       banner.txt
