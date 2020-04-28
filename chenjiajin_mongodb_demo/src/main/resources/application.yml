@@ -5,9 +5,11 @@ spring:
     mongodb:
       database: articledb
       host: 101.133.143.199
-      port: 27017
+      port: 16825
       #也可以用uri链接
       #uri: mongodb://101.133.143.199:27017/articledb
+      username: jowim_game
+      password: Aa@111111
   banner:
     location:
       banner.txt

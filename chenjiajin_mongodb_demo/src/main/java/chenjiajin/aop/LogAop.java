@@ -27,7 +27,7 @@ public class LogAop {
      */
     private Long endTime;
 
-    private final String operateLogPoint = "execution(* chenjiajin.controller.*.*(..))";
+    private final String operateLogPoint = "execution(* chenjiajin.web.*.*(..))";
 
     @Pointcut(operateLogPoint)//切点
     public void webLog() {

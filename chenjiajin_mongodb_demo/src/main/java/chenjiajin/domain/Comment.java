@@ -23,7 +23,6 @@ import java.util.Date;
 // @CompoundIndex( def = "{'userid': 1, 'nickname': -1}")
 public class Comment extends JSONObject implements Serializable {
     //主键标识，该属性的值会自动对应mongodb的主键字段"_id"，如果该属性名就叫“id”,则该注解可以省略，否则必须写
-    @Id
     private String id;//主键
     //该属性对应mongodb的字段的名字，如果一致，则无需该注解
     @Field("content")
@@ -37,6 +36,8 @@ public class Comment extends JSONObject implements Serializable {
     private String state;//状态
     private String parentid;//上级id
     private String articleid;
+    @Id
+    private String _id;
 
     @Override
     public String toString() {
@@ -52,6 +53,7 @@ public class Comment extends JSONObject implements Serializable {
                 ", state='" + state + '\'' +
                 ", parentid='" + parentid + '\'' +
                 ", articleid='" + articleid + '\'' +
+                ", _id='" + _id + '\'' +
                 '}';
     }
 
@@ -141,6 +143,14 @@ public class Comment extends JSONObject implements Serializable {
 
     public void setArticleid(String articleid) {
         this.articleid = articleid;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }
 

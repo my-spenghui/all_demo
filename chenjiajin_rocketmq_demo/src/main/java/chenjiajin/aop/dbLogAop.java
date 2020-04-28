@@ -61,7 +61,7 @@ public class dbLogAop {
     public void doAfterReturning(Object ret) throws Throwable {
         endTime = System.currentTimeMillis();
         log.info("请求结束时间 ： " + DateUtil.now());
-        log.info("请求耗时 ： " + (endTime - startTime));
+        log.info("请求耗时 ： " + (endTime - startTime)+" ms");
         // 处理完请求，返回内容
         log.info("请求返回 : " + ret);
     }
