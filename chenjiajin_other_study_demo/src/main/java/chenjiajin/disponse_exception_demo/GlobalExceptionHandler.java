@@ -1,5 +1,6 @@
 package chenjiajin.disponse_exception_demo;
 
+import chenjiajin.disponse_exception_demo.all_exception.ResourceNotFoundException;
 import chenjiajin.disponse_exception_demo.web.ExceptionController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

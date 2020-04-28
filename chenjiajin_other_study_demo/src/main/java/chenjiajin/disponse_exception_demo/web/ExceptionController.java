@@ -1,6 +1,7 @@
 package chenjiajin.disponse_exception_demo.web;
 
-import chenjiajin.disponse_exception_demo.ResourceNotFoundException;
+import chenjiajin.disponse_exception_demo.all_exception.ResourceNotFoundException;
+import chenjiajin.disponse_exception_demo.all_exception.ResourceServerBadException;
 import chenjiajin.disponse_exception_demo.domain.Person;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,4 +21,13 @@ public class ExceptionController {
         throw new ResourceNotFoundException(ImmutableMap.of("person id:", p.getId()));
     }
 
+
+    @GetMapping("/resourceBadServer")
+    public void badServer() {
+        Person p = new Person(1L, "SnailClimb");
+        /**
+         * 抛出一个自定义异常，根据类名
+         */
+        throw new ResourceServerBadException(ImmutableMap.of("person id:", p.getId()));
+    }
 }
