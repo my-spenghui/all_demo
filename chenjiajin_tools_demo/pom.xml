@@ -67,7 +67,8 @@
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
         </dependency>
-        <dependency>  <!-- 支持识别yml配置 -->
+        <!-- 支持识别yml配置 -->
+        <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>

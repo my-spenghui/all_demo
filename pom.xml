@@ -20,6 +20,7 @@
         <module>chenjiajin_tools_demo</module>
         <module>chenjiajin_other_study_demo</module>
         <module>chenjiajin_mongodb_demo</module>
+        <module>chenjiajin_jpa_demo</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
