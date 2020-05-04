@@ -1,16 +1,9 @@
 package chenjiajin.Annotationdemo;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPObject;
-import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
-import io.netty.util.internal.StringUtil;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -28,7 +21,7 @@ public class AnnotationController {
 
 //    public  <T> Map<String,String> getData(T t){
 //        Map<String,String> map = new HashMap<>();
-//        String json = ResponseEntity.ok().body(t).toString();
+//        String json =
 //        String errors = JSONObject.parseObject(json).getString("errors");
 //        if(StringUtil.isNullOrEmpty(errors)){
 //            map.put("1","ok");
