@@ -13,6 +13,7 @@
         <module>chenjiajin_eureka_demo</module>
         <module>chenjiajin_other_module_demo</module>
         <module>chenjiajin_ribbon_demo</module>
+        <module>chenjiajin_zuul_demo</module>
     </modules>
 
     <artifactId>chenjiajin_spring_cloud_demo</artifactId>
