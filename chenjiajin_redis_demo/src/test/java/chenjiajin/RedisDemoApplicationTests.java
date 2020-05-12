@@ -20,7 +20,7 @@ class RedisDemoApplicationTests {
     }
     @Test
     void contextLoads222() {
-        redisTemplates.decrKey("a");
+        redisTemplates.incrKey("a",665);
     }
     @Test
     void context123Loads222() {

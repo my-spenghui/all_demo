@@ -30,7 +30,7 @@ public interface RedisTemplates {
      * @param time
      * @param timeUnit
      */
-    void set(String key, Object val, Long time, TimeUnit timeUnit);
+    void set(String key, Object val, Integer time, TimeUnit timeUnit);
 
     /**
      * 默认给指定key多设置一天的时间(24小时整)
@@ -46,14 +46,14 @@ public interface RedisTemplates {
      * @param key
      * @return
      */
-    boolean setKeyTime(String key, Long time, TimeUnit timeUnit);
+    boolean setKeyTime(String key, Integer time, TimeUnit timeUnit);
 
     /**
      * 给key设置自增1
      *
      * @param key
      */
-    void incrKey(String key);
+    boolean incrKey(String key);
 
     /**
      * 给key设置自增的值
@@ -69,10 +69,11 @@ public interface RedisTemplates {
      * @param key
      * @param val
      */
-    void incrKey(String key, Long val);
+    boolean incrKey(String key, Integer val);
 
     /**
      * 获取key的值
+     *
      * @param key
      * @return
      */
@@ -80,15 +81,17 @@ public interface RedisTemplates {
 
     /**
      * 给指定key自减1
+     *
      * @param key
      */
     boolean decrKey(String key);
 
     /**
      * 给指定key自减指定数值
+     *
      * @param key
      */
-    boolean decrKey(String key,Long val);
+    boolean decrKey(String key, Integer val);
 
 
 }

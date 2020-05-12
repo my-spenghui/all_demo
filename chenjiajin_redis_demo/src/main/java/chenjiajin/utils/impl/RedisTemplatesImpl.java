@@ -1,6 +1,7 @@
 package chenjiajin.utils.impl;
 
 import chenjiajin.utils.RedisTemplates;
+import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class RedisTemplatesImpl implements RedisTemplates {
      * @param timeUnit
      */
     @Override
-    public void set(String key, Object val, Long time, TimeUnit timeUnit) {
+    public void set(String key, Object val, Integer time, TimeUnit timeUnit) {
         redis.opsForValue().set(key, val, time, timeUnit);
     }
 
@@ -79,7 +80,7 @@ public class RedisTemplatesImpl implements RedisTemplates {
      * @return
      */
     @Override
-    public boolean setKeyTime(String key, Long time, TimeUnit timeUnit) {
+    public boolean setKeyTime(String key, Integer time, TimeUnit timeUnit) {
         return redis.expire(key, time, timeUnit);
     }
 
@@ -89,8 +90,13 @@ public class RedisTemplatesImpl implements RedisTemplates {
      * @param key
      */
     @Override
-    public void incrKey(String key) {
-        redis.opsForValue().increment(key);
+    public boolean incrKey(String key) {
+        if (isInteger(key)) {
+            redis.opsForValue().increment(key);
+            return true;
+        }
+        LOG.error("key：" + key + ",自增1失败，因为这原本的值不是个整数类型");
+        return false;
     }
 
     /**
@@ -111,12 +117,18 @@ public class RedisTemplatesImpl implements RedisTemplates {
      * @param val
      */
     @Override
-    public void incrKey(String key, Long val) {
-        redis.opsForValue().increment(key, val);
+    public boolean incrKey(String key, Integer val) {
+        if (isInteger(key)) {
+            redis.opsForValue().increment(key, val);
+            return true;
+        }
+        LOG.error("key：" + key + ",自增:" + val + "失败，因为这原本的值不是个整数类型");
+        return false;
     }
 
     /**
      * 获取key的值
+     *
      * @param key
      * @return
      */
@@ -127,42 +139,45 @@ public class RedisTemplatesImpl implements RedisTemplates {
 
     /**
      * 给指定key自减1
+     *
      * @param key
      */
     @Override
     public boolean decrKey(String key) {
-        if(isInteger(key)){
+        if (isInteger(key)) {
             redis.opsForValue().decrement(key);
-            return false;
+            return true;
         }
-        LOG.error("key："+key+",自减1失败，因为这原本的值不是个整数类型");
+        LOG.error("key：" + key + ",自减1失败，因为这原本的值不是个整数类型");
         return false;
     }
 
     /**
      * 给指定key自减指定数值
+     *
      * @param key
      * @param val
      */
     @Override
-    public boolean decrKey(String key, Long val) {
-        if(isInteger(key)){
-            redis.opsForValue().decrement(key,val);
-            return false;
+    public boolean decrKey(String key, Integer val) {
+        if (isInteger(key)) {
+            redis.opsForValue().decrement(key, val);
+            return true;
         }
-        LOG.error("key："+key+",自减:"+val+"失败，因为这原本的值不是个整数类型");
+        LOG.error("key：" + key + ",自减:" + val + "失败，因为这原本的值不是个整数类型");
         return false;
     }
 
 
     /**
      * 判断是否为整数
+     *
      * @param key
      * @return
      */
-    private boolean isInteger(String key){
+    private boolean isInteger(String key) {
         Object val = get(key);
-        if(val instanceof Integer || val instanceof Long || val instanceof Byte || val instanceof Short){
+        if (val instanceof Integer || val instanceof Long || val instanceof Byte || val instanceof Short) {
             return true;
         }
         return false;
