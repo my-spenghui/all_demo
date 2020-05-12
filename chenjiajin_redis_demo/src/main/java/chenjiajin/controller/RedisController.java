@@ -21,8 +21,16 @@ public class RedisController {
     @GetMapping("/string/string")
     public Object stringRedis() throws Exception {
         redisTemplate.opsForValue().set("tt", "val");
+        //单独设置过期时间
         redisTemplate.expire("tt",20000, TimeUnit.MILLISECONDS);
-        return redisTemplate.opsForValue().get("tt");
+        //一起设置过期时间
+        redisTemplate.opsForValue().set("num","123",10, TimeUnit.SECONDS);
+//        TimeUnit.DAYS          //天
+//        TimeUnit.HOURS         //小时
+//        TimeUnit.MINUTES       //分钟
+//        TimeUnit.SECONDS       //秒
+//        TimeUnit.MILLISECONDS  //毫秒
+        return redisTemplate.opsForValue().get("tt") +","+ redisTemplate.opsForValue().get("nun");
     }
 
     @GetMapping("/string/object")
