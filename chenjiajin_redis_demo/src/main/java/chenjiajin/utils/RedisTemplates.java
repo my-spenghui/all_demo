@@ -3,6 +3,7 @@ package chenjiajin.utils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public interface RedisTemplates {
@@ -161,4 +162,76 @@ public interface RedisTemplates {
      * @return
      */
     Object lPop(String key,Integer time);
+
+    /**
+     * 添加值到map里
+     * @param key
+     * @param map
+     */
+    void hSet(String key,Map<String,Object> map);
+
+    /**
+     * 获取指定key里面的所有map
+     * @param key
+     * @return
+     */
+    Map<Object,Object> hGetAll(String key);
+
+    /**
+     * 获取指定map里指定key的值
+     * @param key
+     * @param field
+     * @return
+     */
+    Object hGet(String key,String field);
+
+    /**
+     * 获取指定map里的所有key
+     * @param key
+     * @return
+     */
+    Set<Object> hKeys(String key);
+
+    /**
+     * 获取指定map里所有的val
+     *
+     * @param key
+     * @return
+     */
+    List<Object> hVals(String key);
+
+    /**
+     * 对指定的key的值自增1
+     * @param key
+     * @param field
+     */
+    boolean hIncr(String key,String field);
+
+    /**
+     * 对指定的key自增指定数值
+     * @param key
+     * @param field
+     * @param number
+     */
+    boolean hIncr(String key,String field,Integer number);
+
+    /**
+     * 对指定key的值自减1
+     * @param key
+     * @param field
+     */
+    boolean hDecr(String key,String field);
+    /**
+     * 对指定key的值自减指定数值
+     * @param key
+     * @param field
+     */
+    boolean hDecr(String key,String field,Integer number);
+
+    /**
+     * 删除指定的键值
+     * @param key
+     * @param field
+     */
+    void hDelete(String key,String field);
 }

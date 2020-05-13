@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -212,7 +213,7 @@ public class RedisTemplatesImpl implements RedisTemplates {
     @Override
     public Long rPush(String key, Object val) {
         Long a = redis.opsForList().rightPush(key, val);
-        setKeyTime(key);
+//        setKeyTime(key);
         return a;
     }
 
@@ -226,7 +227,7 @@ public class RedisTemplatesImpl implements RedisTemplates {
     @Override
     public Long rPush(String key, List<Object> val) {
         long a = redis.opsForList().rightPushAll(key, val);
-        setKeyTime(key);
+//        setKeyTime(key);
         return a;
     }
 
@@ -268,6 +269,121 @@ public class RedisTemplatesImpl implements RedisTemplates {
     @Override
     public Object lPop(String key, Integer time) {
         return redis.opsForList().leftPop(key, time, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * 添加值到map里
+     * @param key
+     * @param map
+     */
+    @Override
+    public void hSet(String key, Map<String, Object> map) {
+        redis.opsForHash().putAll(key,map);
+    }
+
+    /**
+     * 获取指定key里面的所有map
+     * @param key
+     * @return
+     */
+    @Override
+    public Map<Object, Object> hGetAll(String key) {
+        return redis.opsForHash().entries(key);
+    }
+
+    /**
+     * 获取指定map里指定key的指定值
+     * @param key
+     * @param field
+     * @return
+     */
+    @Override
+    public Object hGet(String key, String field) {
+        return redis.opsForHash().get(key,field);
+    }
+
+    /**
+     * 获取指定map里所有的key
+     * @param key
+     * @return
+     */
+    @Override
+    public Set<Object> hKeys(String key) {
+        return redis.opsForHash().keys(key);
+    }
+
+    /**
+     * 获取指定map里所有的val
+     * @param key
+     * @return
+     */
+    @Override
+    public List<Object> hVals(String key) {
+        return redis.opsForHash().values(key);
+    }
+
+    /**
+     * 对指定的key自增1
+     * @param key
+     * @param field
+     */
+    @Override
+    public boolean hIncr(String key, String field) {
+        redis.opsForHash().increment(key,field,1);
+        return true;
+    }
+
+    /**
+     * 对指定key值自增指定数值
+     * @param key
+     * @param field
+     * @param number
+     */
+    @Override
+    public boolean hIncr(String key, String field, Integer number) {
+        if(number < 0){
+            LOG.error("请输入大于0的数值");
+            return false;
+        }
+        redis.opsForHash().increment(key,field,number);
+        return true;
+    }
+
+    /**
+     * 对指定key值自减1
+     * @param key
+     * @param field
+     */
+    @Override
+    public boolean hDecr(String key, String field) {
+        redis.opsForHash().increment(key,field,-1);
+        return true;
+    }
+
+    /**
+     * 对指定key的值自减指定数值
+     * @param key
+     * @param field
+     * @param number
+     */
+    @Override
+    public boolean hDecr(String key, String field, Integer number) {
+        if(number < 0){
+            LOG.error("请输入大于0的数值");
+            return false;
+        }
+        redis.opsForHash().increment(key,field,-number);
+        return true;
+    }
+
+    /**
+     * 删除指定的键值
+     * @param key
+     * @param field
+     */
+    @Override
+    public void hDelete(String key, String field) {
+        redis.opsForHash().delete(key,field);
     }
 
 

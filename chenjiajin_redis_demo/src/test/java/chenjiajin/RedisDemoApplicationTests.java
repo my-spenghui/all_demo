@@ -30,7 +30,6 @@ class RedisDemoApplicationTests {
     }
     @Test
     void context123Loads222() {
-        Map<String,Object> map = new HashMap<>();
         List<Object> list = new ArrayList<>();
         list.add("sd");
         list.add("3r3r");
@@ -41,6 +40,18 @@ class RedisDemoApplicationTests {
     @Test
     void con3oads222() {
         System.out.println(redisTemplates.lPop("ll",20000));
+    }
+
+    @Test
+    void con3oad2s222() {
+        Map<String,Object> map = new HashMap<>();
+        map.put("num",1);
+        redisTemplates.hSet("mp",map);
+    }
+
+    @Test
+    void conssss3oad2s222() {
+        redisTemplates.hDecr("mp","num");
     }
 
 }
