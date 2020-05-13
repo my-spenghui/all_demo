@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -55,22 +58,21 @@ public class RedisTemplatesImpl implements RedisTemplates {
      * @param key
      * @param val
      * @param time
-     * @param timeUnit
      */
     @Override
-    public void set(String key, Object val, Integer time, TimeUnit timeUnit) {
-        redis.opsForValue().set(key, val, time, timeUnit);
+    public void set(String key, Object val, Integer time) {
+        redis.opsForValue().set(key, val, time, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * 默认给指定key多设置一天的时间(24小时整)
+     * 给key添加随机过期时间，默认24大于小时整
      *
      * @param key
      * @return
      */
     @Override
     public boolean setKeyTime(String key) {
-        return redis.expire(key, 24, TimeUnit.HOURS);
+        return redis.expire(key, new Random().nextInt(99999999) + 99999999 + 86400000, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -166,6 +168,106 @@ public class RedisTemplatesImpl implements RedisTemplates {
         }
         LOG.error("key：" + key + ",自减:" + val + "失败，因为这原本的值不是个整数类型");
         return false;
+    }
+
+    /**
+     * 删除指定key
+     *
+     * @param key
+     * @return
+     */
+    @Override
+    public boolean deleteKey(String key) {
+        return redis.delete(key);
+    }
+
+    /**
+     * 通过批量的key获取批量的val
+     *
+     * @param key
+     * @return
+     */
+    @Override
+    public List<Object> mGet(List<String> key) {
+        return redis.opsForValue().multiGet(key);
+    }
+
+    /**
+     * 批量插入
+     *
+     * @param map
+     * @return
+     */
+    @Override
+    public boolean mSet(Map<String, Object> map) {
+        return redis.opsForValue().multiSetIfAbsent(map);
+    }
+
+    /**
+     * 从右边（末尾）添加一个值到list中
+     *
+     * @param key
+     * @param val
+     */
+    @Override
+    public Long rPush(String key, Object val) {
+        Long a = redis.opsForList().rightPush(key, val);
+        setKeyTime(key);
+        return a;
+    }
+
+    /**
+     * 从右边（末尾）添加很多值到list中
+     *
+     * @param key
+     * @param val
+     * @return
+     */
+    @Override
+    public Long rPush(String key, List<Object> val) {
+        long a = redis.opsForList().rightPushAll(key, val);
+        setKeyTime(key);
+        return a;
+    }
+
+    /**
+     * 获取指定区域内的list的数据
+     *
+     * @param key
+     * @param page
+     * @param pageSize 0 -1 代表获取全部数据 0 2 代表获取三条数据 分别是下标为 0 1 2 的三条数据
+     * @return
+     */
+    @Override
+    public List<Object> lRange(String key, Integer page, Integer pageSize) {
+        if (null == page || null == pageSize) {
+            page = 0;
+            pageSize = -1;
+        }
+        return redis.opsForList().range(key, page, pageSize);
+    }
+
+    /**
+     * 获取集合左边第一个数据并删除，如果没有数据，则删除整个集合
+     *
+     * @param key
+     * @return
+     */
+    @Override
+    public Object lPop(String key) {
+        return redis.opsForList().leftPop(key);
+    }
+
+    /**
+     * 在规定时间内取出数值，如果有数值就取出并且返回，否则就没有
+     *
+     * @param key
+     * @param time
+     * @return
+     */
+    @Override
+    public Object lPop(String key, Integer time) {
+        return redis.opsForList().leftPop(key, time, TimeUnit.MILLISECONDS);
     }
 
 
