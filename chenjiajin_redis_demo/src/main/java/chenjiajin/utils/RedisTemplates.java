@@ -6,6 +6,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 懒得写了，参考文档 ：
+ * https://blog.csdn.net/weixin_43835717/article/details/92802040
+ */
 public interface RedisTemplates {
 
     /**

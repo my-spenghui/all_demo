@@ -1,7 +1,6 @@
 package chenjiajin.utils.impl;
 
 import chenjiajin.utils.RedisTemplates;
-import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 操作redis的工具类
+ * 懒得写了，参考文档 ：
+ * https://blog.csdn.net/weixin_43835717/article/details/92802040
  */
 @Service
 public class RedisTemplatesImpl implements RedisTemplates {
