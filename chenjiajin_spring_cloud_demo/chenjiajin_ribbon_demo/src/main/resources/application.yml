@@ -24,7 +24,8 @@ product-service: #输入服务名  对他的端口进行随机访问 而不是�
 feign:
   #开启启用hystrix  默认是关闭的
   hystrix:
-  enabled: true#开启hystrix
+  #开启hystrix
+  enabled: true
   client:
     config:
       default:
