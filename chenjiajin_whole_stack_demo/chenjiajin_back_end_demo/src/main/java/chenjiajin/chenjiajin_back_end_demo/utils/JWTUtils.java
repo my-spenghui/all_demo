@@ -16,74 +16,64 @@ import java.util.Date;
  */
 public class JWTUtils {
 
-
     /**
      * 过期时间，一周
      */
-    private  static final long EXPIRE = 60000 * 60 * 24 * 7;
+    private static final long EXPIRE = 60000 * 60 * 24 * 7;
     //private  static final long EXPIRE = 1;
-
 
     /**
      * 加密秘钥
      */
-    private  static final String SECRET = "xdclass.net168";
-
+    private static final String SECRET = "xdclass.net168";
 
     /**
      * 令牌前缀
      */
-    private  static final String TOKEN_PREFIX = "xdclass";
-
+    private static final String TOKEN_PREFIX = "xdclass";
 
     /**
      * subject
      */
-    private  static final String SUBJECT = "xdclass";
-
+    private static final String SUBJECT = "xdclass";
 
     /**
      * 根据用户信息，生成令牌
+     *
      * @param user
      * @return
      */
-    public static String geneJsonWebToken(User user){
+    public static String geneJsonWebToken(User user) {
 
         String token = Jwts.builder().setSubject(SUBJECT)
-                .claim("head_img",user.getHeadImg())
-                .claim("id",user.getId())
-                .claim("name",user.getName())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))
-                .signWith(SignatureAlgorithm.HS256,SECRET).compact();
+                //设置一些用户数据，解密后可以直接通过key来get到对应的数据
+                .claim("head_img", user.getHeadImg())
+                .claim("id", user.getId())
+                .claim("name", user.getName())
+                .setIssuedAt(new Date())//设置生成时间
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))//设置过期时间
+                .signWith(SignatureAlgorithm.HS256, SECRET).compact();//设置加密算法
 
         token = TOKEN_PREFIX + token;
-
 
         return token;
     }
 
-
     /**
      * 校验token的方法
+     *
      * @param token
      * @return
      */
-    public static Claims checkJWT(String token){
-
-        try{
-
-            final  Claims claims = Jwts.parser().setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX,"")).getBody();
-
+    public static Claims checkJWT(String token) {
+        try {
+            final Claims claims = Jwts.parser().setSigningKey(SECRET)
+                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                    .getBody();
             return claims;
-
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
-
     }
-
-
 
 }
