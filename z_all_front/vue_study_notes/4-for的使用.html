@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<body>
+		<div id="app3">
+			<ol>
+				<li v-for="user in list">名字：{{user.name}}</li>
+				<li v-for="user in list">年龄：{{user.age}}</li>
+			</ol>
+		</div>
+	</body>
+</html>
+	<script>
+		new Vue({
+			el:"#app3",
+			data:{
+				list:[
+					{
+						name:"陈嘉劲",
+						age:"18"
+					},
+					{
+						name:"666",
+						age:"98"
+					}
+				]
+			}
+		})
+	</script>

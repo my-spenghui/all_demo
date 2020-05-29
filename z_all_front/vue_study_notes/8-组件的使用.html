@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<body>
+		<p>组件要装在 div 然后要在vue new 出来才能用</p>
+		<div id="app">
+			<qugemingzi></qugemingzi>
+			<qugemingzi></qugemingzi>
+		</div>
+	</body>
+	<script>
+		
+		Vue.component("qugemingzi",{
+			data:function(){
+				return {
+					count:0
+				}
+			},
+			template:"<button @click='count++'>点击 {{count}} 次了</button>"
+		})
+		
+		new Vue({
+			el:"#app",
+			data:{
+				msg:"测试 vue"
+			}
+		})
+	</script>
+</html>

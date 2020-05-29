@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	
+	<body>
+		
+		<div id="app">
+			{{mm}}
+			<p>v-xxx里面的值都是对应data里面的key的值</p>
+			<a v-bind:href="href"> a </a>
+			<p v-if="da == 50">等于50</p>
+		</div>
+		
+	</body>
+	<script>
+			new Vue({
+				el:"#app",
+				data:{
+					mm:"ooo",
+					href:"https:www.baidu.com",
+					da:50
+				}
+			})
+		</script>
+	
+</html>

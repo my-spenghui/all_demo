@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<body>
+		<div id="app">
+			{{ phone }}
+			<br />
+			输入的手机号:<input v-model="phone" />
+		</div>
+	</body>
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				phone:"123"
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<body>
+		<div id="app">
+			<mingzi msg="sosaaa"></mingzi>
+		</div>
+	</body>
+	<script>
+		
+		Vue.component('mingzi',{
+			props:{
+				msg:{
+					type:String
+				}
+			},
+			data:function(){
+				return {
+					count : 0
+				}
+			},
+			//template里面只能有一个根节点，但是这个根节点里面可以放很多标签
+			template:"<div><button @click='count++'>{{msg}}点了{{count}} 次</button><p>啊啊是</p></div>"
+		})
+		
+		new Vue({
+			el:"#app",
+			data:{
+				msg:"测试 vue"
+			}
+		})
+	</script>
+</html>
