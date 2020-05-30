@@ -7,26 +7,31 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<body>
 		<div id="app">
-			<mingzi msg="sosaaa"></mingzi>
+			<p>在组件中传值就不能使用双大括号的方法了，要在template中传值才有效</p>
+			<mingzi msg="sosaaa" title="titl2323232e"></mingzi>
+			{{msg}}
+			<qita></qita>
 		</div>
 	</body>
 	<script>
 		
 		Vue.component('mingzi',{
-			props:{
-				msg:{
-					type:String
-				}
-			},
+			//一种是指定类型的写法，一种是直接写,两种都可以用
+			// props:{
+			// 	msg:{
+			// 		type:String
+			// 	}
+			// },
+			props:["msg","title"],
 			data:function(){
 				return {
 					count : 0
 				}
 			},
 			//template里面只能有一个根节点，但是这个根节点里面可以放很多标签
-			template:"<div><button @click='count++'>{{msg}}点了{{count}} 次</button><p>啊啊是</p></div>"
+			template:"<div><button @click='count++'>{{msg}}点了{{count}} 次 {{title}} </button><p>啊啊是</p></div>"
 		})
-		
+
 		new Vue({
 			el:"#app",
 			data:{
