@@ -1,5 +1,5 @@
 import axios from "../request"
-
+//和后端对接的接口
 
 //注册接口
 //               常量名            传参               请求方式         请求uri

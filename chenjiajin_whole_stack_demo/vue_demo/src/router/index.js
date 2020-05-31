@@ -8,18 +8,20 @@ import Pay from '../views/Pay/Pay.vue'
 import Personal from '../views/Personal/Personal.vue'
 import Register from '../views/Register/Register.vue'
 
-Vue.use(VueRouter)
+//跳转路径的路由
 
-const routes = [{
-    path: "/",
-    name: "Home",
-    component: Home
-},
+Vue.use(VueRouter)
+const routes = [
+    {
+        path: "/",
+        name: "Home",
+        component: Home
+    },
     {
         path: "/courseDetail",
         name: "CourseDetail",
         //按需加载
-        component: ()=>import("../views/CourseDetail/CourseDetail.vue")
+        component: () => import("../views/CourseDetail/CourseDetail.vue")
         // component: CourseDetail
     },
     {
