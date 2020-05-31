@@ -40,6 +40,7 @@ public class PayOrderlyConsumer {
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> list, ConsumeOrderlyContext consumeOrderlyContext) {
                 try {
                     MessageExt msg = list.get(0);
+                    System.out.println("走了这里的");
                     System.out.println("线程名：【"+Thread.currentThread().getName()+"】"+new String(msg.getBody()));
                     //TODO 业务逻辑操作
                     return ConsumeOrderlyStatus.SUCCESS;

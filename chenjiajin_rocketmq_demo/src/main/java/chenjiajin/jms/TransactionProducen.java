@@ -90,6 +90,12 @@ class TransactionListenerImpl implements TransactionListener {
         System.out.println("transactionId=" + transactionId + ",key=" + key + ",body=" + body);
         //伪代码  操作数据库  执行本地事务   开始~~
         int status = Integer.parseInt(o.toString());
+        /**
+         * TODO
+         * 比如在事务消息中这里可以查数据库
+         * 然后查到的对应数据哪条已经进入数据库，或者状态改变了
+         * 就可以消费事务消息里面的消息了
+         */
         //二次确认消息 然后消费者可以消费
         if (status == 1) {
             return LocalTransactionState.COMMIT_MESSAGE;

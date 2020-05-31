@@ -2,8 +2,10 @@ package chenjiajin.jms;
 
 public class jmsConfig {
 
-    //这里写mq的地址，我写线下的，可以换成线上
-    public static final String NAME_SERVER_ADDR = "127.0.0.1:9876";
+    //本机linux的mq的地址
+    public static final String NAME_SERVER_ADDR = "192.168.118.128:9876";
+//这里写mq的地址，我写线下的，可以换成线上
+//    public static final String NAME_SERVER_ADDR = "127.0.0.1:9876";
 
     /**
      * 设置消费主题

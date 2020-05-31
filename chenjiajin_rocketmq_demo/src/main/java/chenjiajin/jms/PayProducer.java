@@ -4,6 +4,9 @@ import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.springframework.stereotype.Component;
 
+/**
+ * 生产者
+ */
 @Component
 public class PayProducer {
     private String producerGroup = "pay_producer_group"; //所属的组 干嘛用我也不知道
