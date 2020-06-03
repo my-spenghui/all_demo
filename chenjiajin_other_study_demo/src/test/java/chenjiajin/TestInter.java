@@ -13,9 +13,10 @@ import java.util.concurrent.CountDownLatch;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestInter {
 
-    private static final int MAX_THREADS = 1000;//模拟1000用户请求 做并发调用远程接口
-
-    private CountDownLatch cdl = new CountDownLatch(MAX_THREADS);//花名册
+    //模拟1000用户请求 做并发调用远程接口
+    private static final int MAX_THREADS = 1000;
+    //具有计数器的功能，等待其他线程执行完毕，主线程在继续执行
+    private CountDownLatch cdl = new CountDownLatch(MAX_THREADS);
 
     @Autowired
     IGetAllStudent iGetAllStudent;
@@ -42,22 +43,3 @@ public class TestInter {
         Thread.sleep(2000);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

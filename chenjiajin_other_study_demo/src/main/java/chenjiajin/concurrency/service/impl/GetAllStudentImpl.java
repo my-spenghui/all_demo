@@ -17,7 +17,6 @@ public class GetAllStudentImpl implements IGetAllStudent {
 
     @Override
     public Map<String, Object> getAllStudent() throws Exception {
-
         //TODO 还不算正式调用查询接口 组装进去和返回的标识id  如果有入参 也可以塞进去 到时候再查询接口拿出来
         StudentID studentID = new StudentID();
         studentID.setId(UUID.randomUUID().toString());
@@ -28,7 +27,6 @@ public class GetAllStudentImpl implements IGetAllStudent {
         //不断监听自己的线程有没有返回值： 阻塞
         Map<String, Object> map = future.get();
         return map;
-
     }
 
     public List<Map<String, Object>> getAllStudent(List<Map<String, String>> params) {
