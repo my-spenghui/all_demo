@@ -1,7 +1,7 @@
 package chenjiajin.concurrency.service.impl;
 
 import chenjiajin.concurrency.domain.OrderId;
-import chenjiajin.concurrency.service.IGetAllStudent;
+import chenjiajin.concurrency.service.IGetAllOrderService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -9,14 +9,14 @@ import java.util.*;
 import java.util.concurrent.*;
 
 @Service
-public class GetAllStudentImpl implements IGetAllStudent {
+public class GetAllOrderServiceImpl implements IGetAllOrderService {
 
 
     //阻塞队列 把并发的1000个请求组装成若各干请求直接发送给远程第三方接口
     LinkedBlockingQueue<OrderId> queue = new LinkedBlockingQueue<>();
 
     @Override
-    public Map<String, Object> getAllStudent() throws Exception {
+    public Map<String, Object> getAllOrder() throws Exception {
         //TODO 还不算正式调用查询接口 组装进去和返回的标识id  如果有入参 也可以塞进去 到时候再查询接口拿出来
         OrderId orderId = new OrderId();
         orderId.setId(UUID.randomUUID().toString());

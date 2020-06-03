@@ -1,6 +1,6 @@
 package chenjiajin;
 
-import chenjiajin.concurrency.service.IGetAllStudent;
+import chenjiajin.concurrency.service.IGetAllOrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class TestInter {
     private CountDownLatch cdl = new CountDownLatch(MAX_THREADS);
 
     @Autowired
-    IGetAllStudent iGetAllStudent;
+    IGetAllOrderService iGetAllOrderService;
 
     @Test
     public void testInterface() throws Exception {
@@ -34,7 +34,7 @@ public class TestInter {
                     /**
                      * 这时候入参1000 已经自减完成 然后就并发 1000 个用户进来了
                      */
-                    iGetAllStudent.getAllStudent();
+                    iGetAllOrderService.getAllStudent();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

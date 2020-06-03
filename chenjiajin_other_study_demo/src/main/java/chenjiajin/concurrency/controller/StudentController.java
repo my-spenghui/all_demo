@@ -1,7 +1,7 @@
 package chenjiajin.concurrency.controller;
 
 
-import chenjiajin.concurrency.service.IGetAllStudent;
+import chenjiajin.concurrency.service.IGetAllOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,11 +12,11 @@ import java.util.Map;
 public class StudentController {
 
     @Autowired
-    private IGetAllStudent iGetAllStudent;
+    private IGetAllOrderService iGetAllOrderService;
 
     @GetMapping("get_all_student")
-    public Map<String,Object> getAllStudent()throws Exception {
+    public Map<String,Object> getAllOrder()throws Exception {
 
-        return iGetAllStudent.getAllStudent();
+        return iGetAllOrderService.getAllOrder();
     }
 }
