@@ -1,6 +1,6 @@
 package chenjiajin.concurrency.service.impl;
 
-import chenjiajin.concurrency.domain.StudentID;
+import chenjiajin.concurrency.domain.OrderId;
 import chenjiajin.concurrency.service.IGetAllStudent;
 import org.springframework.stereotype.Service;
 
@@ -13,17 +13,17 @@ public class GetAllStudentImpl implements IGetAllStudent {
 
 
     //阻塞队列 把并发的1000个请求组装成若各干请求直接发送给远程第三方接口
-    LinkedBlockingQueue<StudentID> queue = new LinkedBlockingQueue<>();
+    LinkedBlockingQueue<OrderId> queue = new LinkedBlockingQueue<>();
 
     @Override
     public Map<String, Object> getAllStudent() throws Exception {
         //TODO 还不算正式调用查询接口 组装进去和返回的标识id  如果有入参 也可以塞进去 到时候再查询接口拿出来
-        StudentID studentID = new StudentID();
-        studentID.setId(UUID.randomUUID().toString());
+        OrderId orderId = new OrderId();
+        orderId.setId(UUID.randomUUID().toString());
         CompletableFuture<Map<String, Object>> future = new CompletableFuture<>();
-        studentID.setFuture(future);
+        orderId.setFuture(future);
         //把接收到前端的参数 把请求参数放到阻塞队列里头
-        queue.add(studentID);
+        queue.add(orderId);
         //不断监听自己的线程有没有返回值： 阻塞
         Map<String, Object> map = future.get();
         return map;
@@ -36,7 +36,7 @@ public class GetAllStudentImpl implements IGetAllStudent {
             HashMap<String, Object> hashMap = new HashMap<String, Object>();
             hashMap.put("studentId", new Random().nextInt(9999));
             hashMap.put("id", param.get("id"));
-            hashMap.put("名字", "陈嘉劲");
+            hashMap.put("商品名", "陈嘉劲");
             hashMap.put("时间", new Date());
             result.add(hashMap);
         }
@@ -60,29 +60,29 @@ public class GetAllStudentImpl implements IGetAllStudent {
             int size = queue.size();
             if (size > 0) {
                 //拼装批量的请求参数，根据接口来拼装
-                List<StudentID> requests = new ArrayList<>();
+                List<OrderId> requests = new ArrayList<>();
                 List<Map<String, String>> params = new ArrayList<>();
                 for (int i = 0; i < size; i++) {
                     //取出阻塞队列的数据
-                    StudentID studentID = queue.poll();
-                    requests.add(studentID);
+                    OrderId orderId = queue.poll();
+                    requests.add(orderId);
                     //拼装批量参数
                     Map<String, String> map = new HashMap<>();
-                    map.put("id", studentID.getId());
+                    map.put("id", orderId.getId());
                     params.add(map);
                 }
                 System.out.println("批量处理数据:" + size);
                 //批量的去请求接口得到返回值  到这里才算是真正的调用了接口
                 List<Map<String, Object>> reponses = getAllStudent(params);
-                for (StudentID studentID : requests) {
+                for (OrderId orderId : requests) {
                     //请求前的唯一id
-                    String id = studentID.getId();
+                    String id = orderId.getId();
                     for (Map<String, Object> reponse : reponses) {
                         //如果请求前的id和返回结果后回来的id一样，那么就可以返回到原先的请求的地址过去
                         if (id.equals(reponse.get("id").toString())) {
                             //相当于 把请求到的值返回回去
                             //对应   future.get()
-                            studentID.getFuture().complete(reponse);
+                            orderId.getFuture().complete(reponse);
                             //但是方法体不会return 也没必要接着匹配 所以
                             break;
                         }

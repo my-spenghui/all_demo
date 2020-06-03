@@ -3,7 +3,7 @@ package chenjiajin.concurrency.domain;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class StudentID {
+public class OrderId {
 
     private String id;
 
