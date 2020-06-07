@@ -34,12 +34,12 @@ public class TestInter {
                     /**
                      * 这时候入参1000 已经自减完成 然后就并发 1000 个用户进来了
                      */
-                    iGetAllOrderService.getAllStudent();
+                    iGetAllOrderService.getAllOrder();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }).start();
         }
-        Thread.sleep(2000);
+        Thread.sleep(1000);
     }
 }
