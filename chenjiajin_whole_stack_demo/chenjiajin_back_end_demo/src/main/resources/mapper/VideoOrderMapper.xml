@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="chenjiajin.chenjiajin_back_end_demo.mapper.VideoOrderMapper">
+<mapper namespace="chenjiajin.mapper.VideoOrderMapper">
 
 
-    <select id="findByUserIdAndVideoIdAndState" resultType="chenjiajin.chenjiajin_back_end_demo.model.entity.VideoOrder">
+    <select id="findByUserIdAndVideoIdAndState" resultType="chenjiajin.model.entity.VideoOrder">
 
         select * from video_order where  user_id = #{user_id} and video_id = #{video_id} and state = #{state}
 
@@ -21,7 +21,7 @@
 
 
 
-    <select id="listOrderByUserId" resultType="chenjiajin.chenjiajin_back_end_demo.model.entity.VideoOrder">
+    <select id="listOrderByUserId" resultType="chenjiajin.model.entity.VideoOrder">
 
         select * from video_order where user_id=#{user_id} order by create_time desc
 
