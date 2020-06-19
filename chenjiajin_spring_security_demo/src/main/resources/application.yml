@@ -1,6 +1,10 @@
 server:
   port: 7745
 spring:
+  resources:
+    static-locations: classpath:static/,file:static/
+  application:
+    name: security-springboot #spring security配置
   banner:
     location:
       banner.txt
@@ -24,6 +28,10 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
+  mvc:
+    view:
+      prefix: /WEB-INF/views
+      suffix: .jsp
 #mybatis
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
