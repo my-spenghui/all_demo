@@ -19,7 +19,7 @@ public class MpGenerator {
     //密码
     private static final String PASSWORD = "Aa@111111";
     //路径
-    private static final String FINL = "F://sql//";
+    private static final String FINL = "D://sql//";
 
     /**
      * <p>
@@ -56,8 +56,7 @@ public class MpGenerator {
         mpg.setStrategy(strategy);
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com");
-        pc.setModuleName("jowim");
+        pc.setParent("chenjiajin");
         mpg.setPackageInfo(pc);
         // 执行生成
         mpg.execute();
