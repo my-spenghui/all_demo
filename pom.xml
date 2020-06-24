@@ -24,6 +24,7 @@
         <module>chenjiajin_spring_cloud_demo</module>
         <module>chenjiajin_whole_stack_demo</module>
         <module>chenjiajin_spring_security_demo</module>
+        <module>distributed-security</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
