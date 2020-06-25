@@ -28,9 +28,4 @@ public class TokenConfig {
         return converter;
     }
 
-   /* @Bean
-    public TokenStore tokenStore() {
-        //使用内存存储令牌（普通令牌）
-        return new InMemoryTokenStore();
-    }*/
 }

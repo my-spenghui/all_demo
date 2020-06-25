@@ -62,28 +62,12 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
         return clientDetailsService;
     }
 
-    //设置授权码模式的授权码如何存取，暂时采用内存方式
-//    @Bean
-//    public AuthorizationCodeServices authorizationCodeServices() {
-//        return new InMemoryAuthorizationCodeServices();
-//    }
-
     //客户端详情服务
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
         clients.withClientDetails(clientDetailsService); //使用数据库的方式
-//       clients.inMemory()// 使用in-memory存储  内存存储
-//                .withClient("c1")// client_id   客户端id
-//                .secret(new BCryptPasswordEncoder().encode("secret"))//客户端密钥
-//                .resourceIds("res1")//资源列表
-//                .authorizedGrantTypes("authorization_code", "password","client_credentials","implicit","refresh_token")// 该client允许的授权类型authorization_code,password,refresh_token,implicit,client_credentials
-//                .scopes("all")// 允许的授权范围  标识
-//                .autoApprove(false)//false跳转到授权页面
-//                //加上验证回调地址
-//                .redirectUris("http://www.baidu.com");
     }
-
 
     //令牌管理服务
     @Bean
@@ -101,7 +85,6 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
         service.setRefreshTokenValiditySeconds(259200); // 刷新令牌默认有效期3天
         return service;
     }
-
 
     @Bean
     public AuthorizationCodeServices authorizationCodeServices(DataSource dataSource) {
