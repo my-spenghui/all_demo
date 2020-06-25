@@ -1,13 +1,25 @@
 package chenjiajin.config;
 
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) //开启使用方法层面的注解验证
@@ -41,12 +53,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //一般用方法层面的注解比较常用所以这里注释了，但这里也能用就是了
 //                .antMatchers("/r/r1").hasAnyAuthority("p1")//要求访问这个路径要有p1权限
 //                .antMatchers("/r/r2").hasAnyAuthority("p2")//要求访问这个路径要有p2权限
-//                .antMatchers("/r/r3").hasAnyAuthority("p3")//要求访问这个路径要有p2权限
-                .antMatchers("/r/**").authenticated()//所有/r/** 下的所有请求必须认证通过
-                .anyRequest().permitAll()//除了/r/**，其他的请求可以访问
+//                .antMatchers("/r/r3").hasAnyAuthority("p3")//要求访问这个路径要有p3权限
+//                .antMatchers("/r/**").authenticated()//所有/r/** 下的所有请求必须认证通过
+//                .anyRequest().permitAll()//除了/r/**，其他的请求可以访问
+
+                .antMatchers("/","/r/r1").permitAll()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+
                 .and()
                 .formLogin()//允许表单登录
-                .loginPage("/login.html")//自定义登录页面
+//                .loginPage("/login.html")//自定义登录页面
                 .loginProcessingUrl("/login")//登录的路径，自定义登录页面一定要有
                 .successForwardUrl("/login-success")//自定义登录成功的页面资料
                 .and()
@@ -61,7 +78,43 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .logoutSuccessUrl("/logouthtml")//退出后跳转的页面
                 .and()
                 .csrf().disable();//关闭csrf验证
+        http.addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
+
+    }
+
+
+    @Bean
+    CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
+        CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
+        filter.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
+                resp.setContentType("application/json;charset=utf-8");
+                PrintWriter out = resp.getWriter();
+                JSONObject js = new JSONObject();
+                js.put("status", "200");
+                js.put("msg", "登录成功");
+                out.write(js.toString());
+                out.flush();
+                out.close();
+            }
+        });
+        filter.setAuthenticationFailureHandler(new AuthenticationFailureHandler() {
+            @Override
+            public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse resp, AuthenticationException e) throws IOException, ServletException {
+                resp.setContentType("application/json;charset=utf-8");
+                PrintWriter out = resp.getWriter();
+                JSONObject js = new JSONObject();
+                js.put("status", "400");
+                js.put("msg", "登录失败");
+                out.write(js.toString());
+                out.flush();
+                out.close();
+            }
+        });
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
     }
 
     /**
