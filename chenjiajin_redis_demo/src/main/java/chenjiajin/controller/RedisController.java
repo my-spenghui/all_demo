@@ -1,10 +1,12 @@
 package chenjiajin.controller;
 
 import chenjiajin.domain.OrerInfo;
+import chenjiajin.utils.BlockTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -16,6 +18,12 @@ import java.util.concurrent.TimeUnit;
 public class RedisController {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    @GetMapping("/block")
+    public Object oo(@RequestParam String oo) throws Exception {
+        BlockTest.blockingQueue.put(oo);
+        return oo;
+    }
 
 
     @GetMapping("/string/string")
