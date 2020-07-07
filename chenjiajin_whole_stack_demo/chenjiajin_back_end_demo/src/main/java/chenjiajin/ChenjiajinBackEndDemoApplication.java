@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@MapperScan("chenjiajin.chenjiajin_back_end_demo.mapper")
+@MapperScan("chenjiajin.mapper")
 @EnableTransactionManagement
 public class ChenjiajinBackEndDemoApplication {
 
