@@ -1,4 +1,4 @@
-package chenjiajin.concurrency.locks;
+package chenjiajin.concurrency_coding.locks;
 
 import java.util.HashMap;
 import java.util.Map;

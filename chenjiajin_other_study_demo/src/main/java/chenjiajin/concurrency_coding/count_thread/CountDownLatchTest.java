@@ -1,4 +1,4 @@
-package chenjiajin.concurrency.count_thread;
+package chenjiajin.concurrency_coding.count_thread;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CountDownLatch;

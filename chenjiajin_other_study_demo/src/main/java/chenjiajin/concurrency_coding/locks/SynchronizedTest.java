@@ -1,4 +1,4 @@
-package chenjiajin.concurrency.locks;
+package chenjiajin.concurrency_coding.locks;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
