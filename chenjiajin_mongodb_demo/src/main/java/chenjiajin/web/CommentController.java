@@ -94,5 +94,15 @@ public class CommentController {
         //为符合条件的query添加字段
         return mongoTemplate.find(query,Comment.class,"comment");
     }
+    /**
+     * 根据条件来删除
+     * @param json
+     * @return
+     */
+    @PostMapping("find_page")
+    public Object delete(@RequestBody String json){
+        String _id = JSONObject.parseObject(json).getString("_id");
+        return mongoTemplate.remove(new Query(Criteria.where("_id").is(_id)), "comment");
+    }
 
 }
