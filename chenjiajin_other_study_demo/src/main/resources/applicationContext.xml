@@ -25,4 +25,10 @@
         <property name="id" value="9"/>
         <property name="title" value="Spring 5.X"/>
     </bean>
+
+    <bean id="myBeanFactory" class="chenjiajin.springs.domain.MyBeanFactory"/>
+
+    <bean id="beanLift" class="chenjiajin.springs.domain.BeanLife"  init-method="init" destroy-method="destory">
+        <property name="context" value="测试生命周期"/>
+    </bean>
 </beans>

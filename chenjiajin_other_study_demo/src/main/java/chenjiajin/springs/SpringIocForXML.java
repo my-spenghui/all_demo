@@ -29,6 +29,12 @@ public class SpringIocForXML {
         System.out.println(videoOrder.toString());
         System.out.println(video12.toString());
         System.out.println(video33.toString());
+
+        System.out.println("--------------------Spring 新学习");
+        //--------------------------Spring 新学习
+
+        Video myBeanFactory = applicationContext.getBean("myBeanFactory", Video.class);
+        System.out.println(myBeanFactory);
     }
 
 }
