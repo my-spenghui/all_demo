@@ -2,6 +2,8 @@ package chenjiajin.controller;
 
 import chenjiajin.domain.OrerInfo;
 import chenjiajin.utils.BlockTest;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,30 @@ public class RedisController {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    @Autowired
+    private Redisson redisson;
+
+    private final String LOCK_KEY = "keyname";
+
     @GetMapping("/block")
     public Object oo(@RequestParam String oo) throws Exception {
         BlockTest.blockingQueue.put(oo);
+        return oo;
+    }
+
+
+    @GetMapping("/lock")
+    public Object o2o(@RequestParam String oo) throws Exception {
+
+        final RLock keyname = redisson.getLock(LOCK_KEY);
+
+        try {
+            keyname.lock();
+            System.out.println("使用redis分布式锁来扣除库存1");
+        } finally {
+            keyname.unlock();
+        }
+
         return oo;
     }
 
